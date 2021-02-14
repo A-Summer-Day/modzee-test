@@ -20,4 +20,28 @@ class HomeController extends Controller
 		
 		return response()->view('welcome',['user' => $user]);
 	}
+	
+	/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function displayVersionTwo()
+    {
+		$user = User::with('images')->first();
+		
+		return response()->view('welcome-version-2',['user' => $user]);
+	}
+	
+	/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function displayVersionThree()
+    {
+		$user = User::with('images')->first();
+		
+		return response()->view('welcome-version-2',['user' => $user]);
+	}
 }

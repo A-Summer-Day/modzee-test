@@ -1,0 +1,14 @@
+1. Create a new Laravel project
+2. Set up database configuration
+3. Create 2 new database tables: 1 to store user records, and 1 to store image records
+4. Install UI composer package
+5. Create the corresponding eloquent models: User and Image. Define the fillable fields in both models.
+6. Create a seeder to read the json file, 
+7. Add seeder to DatabaseSeeder class, use call method to execute it
+8. Run database seed. Json data is now avaliable in MySQL database and is ready for use
+9. Update the home route 
+10. Fetch the first User record and pass that data to the view
+11. Back-end work is finished here. Next is front-end work
+12.
+
+Problems encountered:
