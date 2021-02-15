@@ -51,14 +51,43 @@
 			.image-title{
 				color: #138298;
 			}
+			
+			.carousel-indicators {
+				position: initial;
+				margin-top: 2.5rem;
+				margin-bottom: 2.5rem;
+			}
 	
+			.carousel {
+				position: relative;
+			}
+
+			.carousel-caption {
+				position: absolute;
+				background: rgba(0,0,0,0.4);
+				padding: 15px 10px;
+			}
+
+			.carousel-control-prev,
+			.carousel-control-next {
+				width: 5%;
+			}
+			
+			html,body{
+				min-height: 100%;
+			}
+			
+			.fa-heart{
+				font-size: small;
+			}
+			
 		</style>
 		
     </head>
     <body>
 		<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 			<!-- Brand -->
-			<a class="navbar-brand" href="javascript:;">Photo Gallery</a>
+			<a class="navbar-brand" href="javascript:;">Welcome</a>
 
 			<!-- Toggler/collapsibe Button -->
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -69,17 +98,18 @@
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('home') }}">Version 1</a>
+						<a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}" href="{{ route('home') }}">Gallery</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('home.version.two') }}">Version 2</a>
+						<a class="nav-link {{ Route::currentRouteName() == 'carousel' ? 'active' : '' }}" href="{{ route('carousel') }}">Carousel</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('home.version.three') }}">Version 3</a>
+						<a class="nav-link {{ Route::currentRouteName() == 'fancybox' ? 'active' : '' }}" href="{{ route('fancybox') }}">Fancybox</a>
 					</li>
 				</ul>
 			</div>
 		</nav>
+		
         <div class="container my-5">
 			<div class="row">
 				<div class="col-sm-12 bg-white px-5 py-3">
@@ -110,25 +140,42 @@
 					</div>
 				</div>
 			</div>
-			<div class="row mt-5 bg-transparent ">
-				<div class="row row-eq-height">
-				@foreach($user->images as $image)
-					<div class="col-sm-4 mb-4">
-						<div class="bg-white rounded shadow-sm h-100">
-							<img src="{{ asset($image->img) }}" alt="{{ $image->title }}" class="img-fluid card-img-top">
-							<div class="p-4">
-								<h5 class="image-title">{{ $image->title }}</h5>
-								<p class="small text-muted mb-0 ">{{ $image->description }}</p>
-								<div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 w-100">
-									@if($image->featured)<i class="fas fa-heart text-danger"></i>@endif
-									<p class="small mb-0 w-100 text-right"><span class="font-weight-bold">{{ \Carbon\Carbon::parse($image->date)->format('Y/m/d') }}</span></p>
-								</div>
-							</div>
-						</div>
+			<div id="gallery" class="carousel slide mt-5" data-ride="carousel">
+			
+				<!-- Slides -->
+				<div class="carousel-inner">
+					@foreach($user->images as $key => $image)
+					
+					<div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+						<img class="d-block w-100" src="{{ asset($image->img) }}" alt="{{ $image->title }}">
+						<div class="carousel-caption">
+							<h3>@if($image->featured)<i class="fas fa-heart text-danger"></i>@endif {{ $image->title }}</h3>
+							<p>{{ $image->description }}</p>
+							<p class="small mb-0 w-100 text-right"><span class="font-weight-bold">{{ \Carbon\Carbon::parse($image->date)->format('Y/m/d') }}</span></p>
+						</div> 
 					</div>
-				@endforeach
+
+					@endforeach
 				</div>
+				
+				<!-- Controls -->
+				<a class="carousel-control-prev" href="#gallery" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#gallery" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+                    @foreach($user->images as $key => $image)
+                        <li data-target="#gallery" data-slide-to="{{ $key }}" class="{{ $key == 0 ? 'active' : '' }}"></li>
+                    @endforeach
+                </ol>
 			</div>
+		
 		</div>
     </body>
 </html>

@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
 		$user = User::with('images')->first();
 		
-		return response()->view('welcome',['user' => $user]);
+		return response()->view('gallery',['user' => $user]);
 	}
 	
 	/**
@@ -26,11 +26,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function displayVersionTwo()
+    public function displayCarousel()
     {
 		$user = User::with('images')->first();
 		
-		return response()->view('welcome-version-2',['user' => $user]);
+		return response()->view('gallery-carousel',['user' => $user]);
 	}
 	
 	/**
@@ -38,10 +38,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function displayVersionThree()
+    public function displayFancybox()
     {
 		$user = User::with('images')->first();
 		
-		return response()->view('welcome-version-2',['user' => $user]);
+		return response()->view('gallery-fancybox',['user' => $user]);
 	}
 }

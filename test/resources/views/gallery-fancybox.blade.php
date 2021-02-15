@@ -10,13 +10,17 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 		
 		<!-- Scripts -->
-		<script src="{{ asset('js/app.js') }}" defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.js"></script>
+		
 		
 		<!-- Font Awesome -->
 		<script src="https://kit.fontawesome.com/a5757c3548.js" crossorigin="anonymous"></script>
 
 		<!-- Styles -->
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css" />
+
 		
 		<style>
 			body{
@@ -49,16 +53,39 @@
 			}
 			
 			.image-title{
-				color: #138298;
+				
 			}
-	
+			
+			html,body{
+				min-height: 100%;
+			}
+			
+			.fa-heart{
+				font-size: small;
+				margin-right: 0.5rem;
+			}
+			
+			.imglist a {
+				display: inline-block;
+				margin: 10px 10px 0 0; 
+			}
+			
+			.imglist a:hover {
+				color: #ffffff;
+				text-decoration: none;
+			}
+			
+			.imglist a img{
+				max-width: 100%;
+			}
+			
 		</style>
 		
     </head>
     <body>
 		<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 			<!-- Brand -->
-			<a class="navbar-brand" href="javascript:;">Photo Gallery</a>
+			<a class="navbar-brand" href="javascript:;">Welcome</a>
 
 			<!-- Toggler/collapsibe Button -->
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -69,17 +96,18 @@
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('home') }}">Version 1</a>
+						<a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}" href="{{ route('home') }}">Gallery</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('home.version.two') }}">Version 2</a>
+						<a class="nav-link {{ Route::currentRouteName() == 'carousel' ? 'active' : '' }}" href="{{ route('carousel') }}">Carousel</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('home.version.three') }}">Version 3</a>
+						<a class="nav-link {{ Route::currentRouteName() == 'fancybox' ? 'active' : '' }}" href="{{ route('fancybox') }}">Fancybox</a>
 					</li>
 				</ul>
 			</div>
 		</nav>
+		
         <div class="container my-5">
 			<div class="row">
 				<div class="col-sm-12 bg-white px-5 py-3">
@@ -110,25 +138,38 @@
 					</div>
 				</div>
 			</div>
-			<div class="row mt-5 bg-transparent ">
-				<div class="row row-eq-height">
+			<div id="gallery" class="row my-5 imglist">
 				@foreach($user->images as $image)
-					<div class="col-sm-4 mb-4">
-						<div class="bg-white rounded shadow-sm h-100">
-							<img src="{{ asset($image->img) }}" alt="{{ $image->title }}" class="img-fluid card-img-top">
-							<div class="p-4">
-								<h5 class="image-title">{{ $image->title }}</h5>
-								<p class="small text-muted mb-0 ">{{ $image->description }}</p>
-								<div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4 w-100">
-									@if($image->featured)<i class="fas fa-heart text-danger"></i>@endif
-									<p class="small mb-0 w-100 text-right"><span class="font-weight-bold">{{ \Carbon\Carbon::parse($image->date)->format('Y/m/d') }}</span></p>
-								</div>
-							</div>
-						</div>
+					<div class="col-sm-6 mb-6">
+						 <a href="{{ asset($image->img) }}" data-fancybox="images" data-caption="{{ $image->description }}">
+							<img src="{{ asset($image->img) }}" alt="{{ $image->title }}"/>
+							<h5 class="image-title text-center text-white mt-2">@if($image->featured)<i class="fas fa-heart text-danger"></i>@endif  {{ $image->title }}<br>
+							<span class="h6">{{ \Carbon\Carbon::parse($image->date)->format('Y/m/d') }}</span>
+							</h5>
+						</a>
 					</div>
+				
 				@endforeach
-				</div>
 			</div>
+		
 		</div>
+		<script type="text/javascript">
+			var $= jQuery.noConflict();
+
+			$(document).ready(function() {
+				$('[data-fancybox="images"]').fancybox({
+					buttons : [ 
+						'slideShow',
+						'share',
+						'zoom',
+						'fullScreen',
+						'close'
+					],
+					thumbs : {
+						autoStart : true
+					}
+				});
+			});
+		</script>
     </body>
 </html>

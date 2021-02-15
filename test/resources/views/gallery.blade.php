@@ -58,7 +58,7 @@
     <body>
 		<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 			<!-- Brand -->
-			<a class="navbar-brand" href="javascript:;">Photo Gallery</a>
+			<a class="navbar-brand" href="javascript:;">Welcome</a>
 
 			<!-- Toggler/collapsibe Button -->
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -69,20 +69,20 @@
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('home') }}">Version 1</a>
+						<a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}" href="{{ route('home') }}">Gallery</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('home.version.two') }}">Version 2</a>
+						<a class="nav-link {{ Route::currentRouteName() == 'carousel' ? 'active' : '' }}" href="{{ route('carousel') }}">Carousel</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('home.version.three') }}">Version 3</a>
+						<a class="nav-link {{ Route::currentRouteName() == 'fancybox' ? 'active' : '' }}" href="{{ route('fancybox') }}">Fancybox</a>
 					</li>
 				</ul>
 			</div>
 		</nav>
         <div class="container my-5">
 			<div class="row">
-				<div class="col-sm-12 bg-white px-5 py-3">
+				<div class="col-sm-12 bg-white px-5 py-3 rounded">
 					<div class="row">
 						<div class="col-sm-2 d-flex flex-wrap align-items-center">
 							<img src="{{ url('/img/profile.jpg') }}" class="rounded-circle img-fluid" alt="Cinque Terre">
