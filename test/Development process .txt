@@ -2,13 +2,29 @@
 2. Set up database configuration
 3. Create 2 new database tables: 1 to store user records, and 1 to store image records
 4. Install UI composer package
-5. Create the corresponding eloquent models: User and Image. Define the fillable fields in both models.
-6. Create a seeder to read the json file, 
+5. Create the corresponding eloquent models: User and Image. Define the fillable fields in both models. Define relationship between the 2 models: one-to-many (One user has many images)
+6. Create seeder to read the json file
 7. Add seeder to DatabaseSeeder class, use call method to execute it
 8. Run database seed. Json data is now avaliable in MySQL database and is ready for use
-9. Update the home route 
+9. Define all necessary routes. In this app, there should only be 1 route, but since I wanted to showcase 3 different interfaces I decived to add 2 more routes
 10. Fetch the first User record and pass that data to the view
 11. Back-end work is finished here. Next is front-end work
-12.
+12. Create 3 different blade templates 
+13. Read data passed from server and render the view
 
-Problems encountered:
+
+Tools I used to build this app: 
+- Laravel: PHP framework to handle routing, templating, data manipulation 
+- Bootstrap: CSS framework to build responsive interface
+- Fancybox: tool to build nice and elegant images with zooming functionality
+- jQuery: JavaScript library that makes JavaScript easier to use on website
+- Font Awesome: font and icon toolkit
+
+
+The easy part of building this project was building the back-end, since I am very familiar with designing database, reading and writing data, defining models and eloquent relationships as well as building RESTful API.
+
+There weren't any difficult parts, but if I have to pick one, if would be to come up with different UI ideas. In the end, I decided to build 3 UIs (1 just like in the wireframe.jpg, 1 that makes use of Bootstrap carousel, and 1 that makes use of Fancybox).
+
+
+Problems encountered: Not a big problem, but in the json file provided, the every image path leads to file that has a jpg extension, while the image folder provided contains images with a jpeg extension. I was not sure if it was a mistake, or if it was on purpose. Since there are only 7 images in the folder, I decided to manually change the extension type. If in a real life scenario there are a large number of file with mismatched extension types, I would choose to make changes in the seeder file. 
+
